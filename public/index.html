@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Node-chat-app</title>
+  </head>
+  <body>
+    <p>welcome to the chat file</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket= io();
+      console.log(socket);
+      socket.on("connect",()=>{
+        console.log("server connected to client");
+      });
+
+      socket.on("disconnect",()=>{
+        console.log("server disconnected from client");
+      });
+    </script>
+  </body>
+</html>
