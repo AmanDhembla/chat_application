@@ -3,6 +3,7 @@ var bodyParser=require("body-parser");
 var ejs=require("ejs");
 var http=require("http");
 var socketIO=require("socket.io");
+var message=require("./utils/message");
 
 var app=express();
 
@@ -18,10 +19,7 @@ const io=socketIO(server);
 io.on("connection",function(socket){
   console.log("user connected to server");
 
-  socket.emit("newMessage",{
-    from:"admin",
-    text:"welcome, have a nice day"
-  });
+  socket.emit("newMessage",message("admin","welcome, have a nice day"));
 
   //emits the event to everyone connected expect the
   //one due to whom event occured
