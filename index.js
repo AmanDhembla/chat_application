@@ -20,12 +20,13 @@ io.on("connection",function(socket){
 
   socket.on("createMessage",function(data){
     console.log("new message recieved",data);
+    io.emit("newMessage",{
+      from:data.from,
+      text:data.text
+    });
   });
 
-  socket.emit("newMessage",{
-    from:"zxc",
-    text:"this is true"
-  });
+
 
   socket.on("disconnect",function(){
     console.log("user disconnected");
