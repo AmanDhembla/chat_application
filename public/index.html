@@ -8,16 +8,6 @@
   <body>
     <p>welcome to the chat file</p>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket= io();
-      console.log(socket);
-      socket.on("connect",()=>{
-        console.log("server connected to client");
-      });
-
-      socket.on("disconnect",()=>{
-        console.log("server disconnected from client");
-      });
-    </script>
+    <script src="/js/index.js"></script>
   </body>
 </html>

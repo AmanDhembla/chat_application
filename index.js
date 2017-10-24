@@ -17,10 +17,22 @@ const io=socketIO(server);
 
 io.on("connection",function(socket){
   console.log("user connected to server");
+
+  socket.on("createMessage",function(data){
+    console.log("new message recieved",data);
+  });
+
+  socket.emit("newMessage",{
+    from:"zxc",
+    text:"this is true"
+  });
+
   socket.on("disconnect",function(){
     console.log("user disconnected");
   });
+
 });
+
 
 
 server.listen(port,function(){
