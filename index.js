@@ -18,8 +18,22 @@ const io=socketIO(server);
 io.on("connection",function(socket){
   console.log("user connected to server");
 
+  socket.emit("newMessage",{
+    from:"admin",
+    text:"welcome, have a nice day"
+  });
+
+  //emits the event to everyone connected expect the
+  //one due to whom event occured
+  socket.broadcast.emit("newMessage",{
+    from:"admin",
+    text:"a new user joined the room"
+  });
+
   socket.on("createMessage",function(data){
     console.log("new message recieved",data);
+    //io.emit emits the data to every connection whereas socket.emit
+    // emits to particular socket connection
     io.emit("newMessage",{
       from:data.from,
       text:data.text
