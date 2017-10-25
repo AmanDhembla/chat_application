@@ -12,7 +12,7 @@ app.set('view engine','ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-const port=process.env.PORT || 3000;
+
 const server=http.createServer(app);
 const io=socketIO(server);
 
@@ -46,7 +46,7 @@ io.on("connection",function(socket){
 
 });
 
-
+var port=process.env.PORT || 3000;
 
 server.listen(port,function(){
   console.log(`server started successfully on port number ${port}`);
