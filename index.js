@@ -38,7 +38,13 @@ io.on("connection",function(socket){
     });
   });
 
-
+  socket.on("createLocationMessage",function(data){
+    io.emit("newLocationMessage",{
+      from:data.from,
+      url:`https://www.google.com/maps?q=${data.latitude},${data.longitude}`,
+      createdAt:new Date().getTime()
+    });
+  });
 
   socket.on("disconnect",function(){
     console.log("user disconnected");
