@@ -6,6 +6,9 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
+  },"engines": {
+    "node": "8.6.0",
+    "npm": "5.4.2"
   },
   "repository": {
     "type": "git",
