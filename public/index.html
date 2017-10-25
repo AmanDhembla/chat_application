@@ -7,7 +7,17 @@
   </head>
   <body>
     <p>welcome to the chat file</p>
+
+    <ol id="message"></ol>
+
+    <form id="message-form">
+      <input type="text" name="message" placeholder="Message"/>
+      <button>Send</button>
+    </form>
+
     <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
     <script src="/js/index.js"></script>
   </body>
 </html>
