@@ -4,7 +4,7 @@ var ejs=require("ejs");
 var http=require("http");
 var socketIO=require("socket.io");
 var message=require("./utils/message");
-
+var moment=require("moment");
 var app=express();
 
 app.use(express.static(__dirname+'/public'));
@@ -23,19 +23,13 @@ io.on("connection",function(socket){
 
   //emits the event to everyone connected expect the
   //one due to whom event occured
-  socket.broadcast.emit("newMessage",{
-    from:"admin",
-    text:"a new user joined the room"
-  });
+  socket.broadcast.emit("newMessage",message("admin","a new user joined the room"));
 
   socket.on("createMessage",function(data,callback){
     console.log("new message recieved",data);
     //io.emit emits the data to every connection whereas socket.emit
     // emits to particular socket connection
-    io.emit("newMessage",{
-      from:data.from,
-      text:data.text
-    });
+    io.emit("newMessage",message(data.from,data.text));
     callback();
   });
 
@@ -43,7 +37,7 @@ io.on("connection",function(socket){
     io.emit("newLocationMessage",{
       from:data.from,
       url:`https://www.google.com/maps?q=${data.latitude},${data.longitude}`,
-      createdAt:new Date().getTime()
+      createdAt:moment.valueOf()
     });
     callback();
   });

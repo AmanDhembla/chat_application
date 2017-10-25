@@ -7,7 +7,8 @@ socket.on("connect",()=>{
 
 socket.on("newMessage",function(data){
   var li=jQuery("<li></li>");
-  li.text(`${data.from}:${data.text}`);
+  var formattedTime=moment(data.createdAt).format("h:mm a");
+  li.text(`${data.from} ${formattedTime}:${data.text}`);
   $("#message").append(li);
   console.log(data);
 })
@@ -55,8 +56,8 @@ localButton.on("click",function(e){
 socket.on("newLocationMessage",function(data){
   var li=jQuery("<li></li>");
   var a=jQuery("<a target='_blank'>my current location</a>");
-
-  li.text(`${data.from}:`);
+  var formattedTime=moment(data.createdAt).format("h:mm a");
+  li.text(`${data.from} ${formattedTime}:`);
   a.attr("href",data.url);
   li.append(a);
   $("#message").append(li);
