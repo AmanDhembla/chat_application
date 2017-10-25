@@ -6,11 +6,17 @@ socket.on("connect",()=>{
 });
 
 socket.on("newMessage",function(data){
-  var li=jQuery("<li></li>");
+
   var formattedTime=moment(data.createdAt).format("h:mm a");
-  li.text(`${data.from} ${formattedTime}:${data.text}`);
-  $("#message").append(li);
-  console.log(data);
+  var template=jQuery("#message-template").html();
+  console.log(template);
+  var html=Mustache.render(template,{
+    text:data.text,
+    from:data.from,
+    createdAt:formattedTime
+  });
+
+  $("#message").append(html);
 })
 
 socket.on("disconnect",()=>{
@@ -54,11 +60,14 @@ localButton.on("click",function(e){
 
 
 socket.on("newLocationMessage",function(data){
-  var li=jQuery("<li></li>");
-  var a=jQuery("<a target='_blank'>my current location</a>");
+
   var formattedTime=moment(data.createdAt).format("h:mm a");
-  li.text(`${data.from} ${formattedTime}:`);
-  a.attr("href",data.url);
-  li.append(a);
-  $("#message").append(li);
+  var template=jQuery("#location-message-template").html();
+  var html=Mustache.render(template,{
+    url:data.url,
+    from:data.from,
+    createdAt:formattedTime
+  });
+
+  $("#message").append(html);
 });
