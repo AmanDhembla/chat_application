@@ -28,7 +28,7 @@ io.on("connection",function(socket){
     text:"a new user joined the room"
   });
 
-  socket.on("createMessage",function(data){
+  socket.on("createMessage",function(data,callback){
     console.log("new message recieved",data);
     //io.emit emits the data to every connection whereas socket.emit
     // emits to particular socket connection
@@ -36,14 +36,16 @@ io.on("connection",function(socket){
       from:data.from,
       text:data.text
     });
+    callback();
   });
 
-  socket.on("createLocationMessage",function(data){
+  socket.on("createLocationMessage",function(data,callback){
     io.emit("newLocationMessage",{
       from:data.from,
       url:`https://www.google.com/maps?q=${data.latitude},${data.longitude}`,
       createdAt:new Date().getTime()
     });
+    callback();
   });
 
   socket.on("disconnect",function(){
