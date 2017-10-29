@@ -5,6 +5,19 @@ socket.on("connect",()=>{
 
 });
 
+
+function scrolling(){
+  var message=$("#message");
+  var scrollTop=message.prop("scrollTop");
+  var scrollHeight=message.prop("scrollHeight");
+  var clientHeight=message.prop("clientHeight");
+  var newMessage=message.children("li:last-child");
+  var newMessageHeight=newMessage.innerHeight();
+  if(clientHeight+scrollTop+newMessageHeight>=scrollHeight){
+    message.scrollTop(scrollHeight);
+  }
+}
+
 socket.on("newMessage",function(data){
 
   var formattedTime=moment(data.createdAt).format("h:mm a");
@@ -17,6 +30,7 @@ socket.on("newMessage",function(data){
   });
 
   $("#message").append(html);
+  scrolling();
 })
 
 socket.on("disconnect",()=>{
@@ -70,4 +84,5 @@ socket.on("newLocationMessage",function(data){
   });
 
   $("#message").append(html);
+  scrolling();
 });
