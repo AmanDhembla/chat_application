@@ -2,8 +2,27 @@ var socket= io();
 console.log(socket);
 socket.on("connect",()=>{
   console.log("server connected to client");
-
+  var params=jQuery.deparam(window.location.search);
+  socket.emit("join",params,function(err){
+    if(err){
+      alert(err);
+      window.location.href="/";
+    }else{
+      console.log("no error");
+    }
+  });
 });
+
+
+socket.on("updateUserList",function(users){
+  console.log(users);
+  var ol=jQuery("<ol></ol>");
+  users.forEach(function(user){
+    ol.append(jQuery("<li></li>").text(user));
+  });
+
+  $("#users").html(ol);
+})
 
 
 function scrolling(){
