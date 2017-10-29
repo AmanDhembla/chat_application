@@ -53,13 +53,18 @@ io.on("connection",function(socket){
     console.log("new message recieved",data);
     //io.emit emits the data to every connection whereas socket.emit
     // emits to particular socket connection
-    io.emit("newMessage",message(data.from,data.text));
+    var u =user.getUser(socket.id);
+    if(isRealString(data.text)){
+      io.to(u.room).emit("newMessage",message(u.name,data.text));
+    }
+
     callback();
   });
 
   socket.on("createLocationMessage",function(data,callback){
-    io.emit("newLocationMessage",{
-      from:data.from,
+    var u =user.getUser(socket.id);
+    io.to(u.room).emit("newLocationMessage",{
+      from:u.name,
       url:`https://www.google.com/maps?q=${data.latitude},${data.longitude}`,
       createdAt:moment.valueOf()
     });
